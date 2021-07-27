@@ -16,6 +16,9 @@
 - mapa de sensores a samples (o criterio de reproducción)
 - speakers autoamplificados y cables para conectarlos
 
+# recomendaciones
+- // ivan 
+
 # dudas
 - los archivos de audio se disparan en paralelo o en serie?
 - como se distribuyen por los altavoces?
