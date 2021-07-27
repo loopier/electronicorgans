@@ -16,8 +16,11 @@
 - mapa de sensores a samples (o criterio de reproducción)
 - speakers autoamplificados y cables para conectarlos
 
+
+
 # recomendaciones
-- // ivan 
+- Escuchando los archivos de la carpeta "Sonidos" estos tienen diferente calidad, volumen, "fade in fade out". La recomendación -a menos que estas diferencias sea algo que se busque - es hacer un trabajo de edicion/mezcla de los archivos.
+- Además hay que pensar en cómo se reproducirán los archivos. Es decir, cuáles serán los speakers/altavoces que se utilizarán para la instalación/performance y cómo estos se integrarán en las "torres". 
 
 # dudas
 - los archivos de audio se disparan en paralelo o en serie?
