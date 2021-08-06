@@ -17,16 +17,11 @@ SynthDef(\amplitude,{
 )
 (
 ~bufs = [
-	Buffer.read(s, Platform.userHomeDir ++ "/loopier/samples/misc/decima.wav"),
-	Buffer.read(s, Platform.userHomeDir ++ "/loopier/samples/misc/ovni.wav"),
-	// Buffer.read(s, Platform.userHomeDir ++ "/loopier/samples/misc/onda.wav"),
-	Buffer.read(s, Platform.userHomeDir ++ "/loopier/samples/misc/inia.wav"),
-	Buffer.read(s, Platform.userHomeDir ++ "/loopier/samples/misc/somni.wav"),
-	// Buffer.read(s, "samples/1silvia_01.wav"),
-	// Buffer.read(s, "samples/2silvia_01.wav"),
+	Buffer.read(s, "samples/1silvia_01.wav"),
+	Buffer.read(s, "samples/2silvia_01.wav"),
 	Buffer.read(s, "samples/3silvia_01.wav"),
-	// Buffer.read(s, "samples/4silvia_01.wav"),
-	// Buffer.read(s, "samples/5silvia_01.wav"),
+	Buffer.read(s, "samples/4silvia_01.wav"),
+	Buffer.read(s, "samples/5silvia_01.wav"),
 ];
 ~sensorsynths = [\loopier, \loopier_rate, \loopier_rate, \notloopier, \notloopier_rate];
 ~synths = Array.fill(5, {|i| Synth(\amplitude, [buf: ~bufs[i]]) });
