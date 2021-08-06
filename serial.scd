@@ -34,16 +34,14 @@ SynthDef(\playbufstereo,{
 ];
 )
 (
+// if this block is evaluated with ~bufs delcaration it doesn't work
 ~synths = Array.fill(5, {|i|
 	var buf = ~bufs[i];
 	buf.numChannels.debug("buf" + i + "channels");
-	// ["mono", "stereo"].choose[buf.numChannels - 1];
-	// [1,2].at(buf.numChannels - 1);
 	[
 		Synth(\playbufmono, [buf: buf]),
 		Synth(\playbufstereo, [buf: buf]),
 		].at(buf.numChannels - 1)
-	// Synth(\playbufstereo, [buf: ~bufs[i]]);
 });
 )
 (
@@ -51,23 +49,17 @@ SynthDef(\playbufstereo,{
 ~serial = Tdef(\serialreceiver, {
 	var byte, str, res;
 	inf.do{
-		// p.read.postln;
-		// if(p.read == 255) {
-			var val;
+		var val;
 		var byteindex = 0;
 		var bytes = Array.fill(5);
-			// str = [];
-			while({byte = p.read; byte !=255}, {
-				// str = str ++ [byte];
-				// byte.debug();
-				byteindex = byteindex + 1;
-				val = byte.linexp(0,150, 4.0,0.01);
-				~synths[byteindex].set(\value, val);
-				val.debug(byteindex);
-			});
-		};
+		while({byte = p.read; byte !=255}, {
+			byteindex = byteindex + 1;
+			val = byte.linexp(0,150, 4.0,0.01);
+			~synths[byteindex].set(\value, val);
+			val.debug(byteindex);
+		});
 		0.1.wait;
-	// };
+	};
 });
 
 ~serial.play;
