@@ -1,13 +1,20 @@
 // =====================================================================
-// SuperCollider Workspace
+// Play buffers with serial data
 // =====================================================================
 
-Loopier.boot;
+s.boot;
 
 SerialPort.devices;
 p = SerialPort("/dev/ttyACM0", 115200, stopbit:true, crtscts:false);
 (
-SynthDef(\amplitude,{
+SynthDef(\playbufmono,{
+	// infinite loop, the value controls the amplitude
+	| value, buf |
+	var sig;
+	sig = PlayBuf.ar(1, buf, rate: 1, trigger: 1.0, startPos: 0.0, loop: 1, doneAction:2) * value;
+	Out.ar(0,sig)
+}).add;
+SynthDef(\playbufstereo,{
 	// infinite loop, the value controls the amplitude
 	| value, buf |
 	var sig;
@@ -17,16 +24,29 @@ SynthDef(\amplitude,{
 )
 (
 ~bufs = [
-	Buffer.read(s, "samples/1silvia_01.wav"),
-	Buffer.read(s, "samples/2silvia_01.wav"),
-	Buffer.read(s, "samples/3silvia_01.wav"),
-	Buffer.read(s, "samples/4silvia_01.wav"),
-	Buffer.read(s, "samples/5silvia_01.wav"),
+	Buffer.read(s, Platform.userHomeDir ++ "/electronicorgans/samples/1silvia_01.wav"),
+	Buffer.read(s, Platform.userHomeDir ++ "/electronicorgans/samples/2silvia_01.wav"),
+	Buffer.read(s, Platform.userHomeDir ++ "/electronicorgans/samples/3silvia_01.wav"),
+	// Buffer.read(s, Platform.userHomeDir ++ "/electronicorgans/samples/4silvia_01.wav"),
+	// Buffer.read(s, Platform.userHomeDir ++ "/electronicorgans/samples/5silvia_01.wav"),
+	Buffer.read(s, Platform.userHomeDir ++ "/electronicorgans/samples/6silvia_01.wav"),
+	Buffer.read(s, Platform.userHomeDir ++ "/electronicorgans/samples/olas_01.wav"),
 ];
-~sensorsynths = [\loopier, \loopier_rate, \loopier_rate, \notloopier, \notloopier_rate];
-~synths = Array.fill(5, {|i| Synth(\amplitude, [buf: ~bufs[i]]) });
-// )
-// (
+)
+(
+~synths = Array.fill(5, {|i|
+	var buf = ~bufs[i];
+	buf.numChannels.debug("buf" + i + "channels");
+	// ["mono", "stereo"].choose[buf.numChannels - 1];
+	// [1,2].at(buf.numChannels - 1);
+	[
+		Synth(\playbufmono, [buf: buf]),
+		Synth(\playbufstereo, [buf: buf]),
+		].at(buf.numChannels - 1)
+	// Synth(\playbufstereo, [buf: ~bufs[i]]);
+});
+)
+(
 ~serial.clear;
 ~serial = Tdef(\serialreceiver, {
 	var byte, str, res;
@@ -53,4 +73,5 @@ SynthDef(\amplitude,{
 ~serial.play;
 )
 ~serial.stop;
+~serial.clear;
 s.freeAll
