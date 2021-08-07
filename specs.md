@@ -26,3 +26,13 @@
 - los archivos de audio se disparan en paralelo o en serie?
 - como se distribuyen por los altavoces?
 - se lanzan y suenan hasta el final o se lanzan y se paran al recibir un SENSOR-OFF?
+
+
+# sounds
+- electrocardiograma (beat)
+- voces: sumando samples con cercanía (random choice o por orden y shift)
+- paisajes sonoros 
+  - pájaros
+  - ballenas
+  - ruido blanco
+  - pop hits (random)
