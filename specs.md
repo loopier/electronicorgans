@@ -29,9 +29,10 @@
 
 
 # sounds
-- electrocardiograma (beat)
-- voces: sumando samples con cercanía (random choice o por orden y shift)
-- paisajes sonoros 
+- electrocardiograma (beat): se acelera con la porximidad
+- voces: sumando samples con cercanía 
+  - el primero es random cada vez.  Se van sumando otros samples a medida que se va acercando
+- paisajes sonoros: 
   - pájaros
   - ballenas
   - ruido blanco
